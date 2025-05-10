@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat Launcher</title>
+    <!-- Favicon (WhatsApp-themed) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://web.whatsapp.com/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://web.whatsapp.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://web.whatsapp.com/favicon-16x16.png">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- WhatsApp-themed CSS -->
+    <style>
+        :root {
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #075E54;
+            --whatsapp-light: #128C7E;
+            --whatsapp-chat-bg: #e5ddd5;
+            --whatsapp-text: #3b4a54;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--whatsapp-light), var(--whatsapp-dark));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .header {
+            background: var(--whatsapp-dark);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .header .logo {
+            font-size: 1.8rem;
+        }
+        
+        .content {
+            padding: 25px;
+            background: var(--whatsapp-chat-bg);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--whatsapp-text);
+            font-weight: 500;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-wrapper span {
+            padding: 0 15px;
+            background: #f0f0f0;
+            color: var(--whatsapp-text);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+        
+        .input-wrapper input {
+            flex: 1;
+            border: none;
+            padding: 15px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .input-wrapper input::placeholder {
+            color: #999;
+        }
+        
+        .btn {
+            background: var(--whatsapp-green);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success {
+            color: var(--whatsapp-green);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: var(--whatsapp-text);
+            font-size: 0.9rem;
+            background: white;
+        }
+        
+        .footer a {
+            color: var(--whatsapp-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 0;
+                max-width: 100%;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <i class="fab fa-whatsapp logo"></i>
+                WhatsApp Chat Launcher
+            </h1>
+        </div>
+        
+        <div class="content">
+            <div class="input-group">
+                <label for="phone">Enter Phone Number</label>
+                <div class="input-wrapper">
+                    <span>+</span>
+                    <input type="tel" id="phone" placeholder="e.g., 911234567890" maxlength="15">
+                </div>
+                <div class="error" id="error-msg">Please enter a valid phone number (10-15 digits).</div>
+                <div class="success" id="success-msg">Valid number! Click the button below.</div>
+            </div>
+            
+            <button class="btn" id="launch-btn">
+                <i class="fab fa-whatsapp"></i>
+                Open in WhatsApp
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>By using this service, you agree to <a href="https://www.whatsapp.com/legal/" target="_blank">WhatsApp's Terms</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const launchBtn = document.getElementById('launch-btn');
+            const errorMsg = document.getElementById('error-msg');
+            const successMsg = document.getElementById('success-msg');
+            
+            // Validate phone number in real-time
+            phoneInput.addEventListener('input', function() {
+                const phoneNumber = this.value.replace(/\D/g, '');
+                this.value = phoneNumber; // Force numeric input
+                
+                if (phoneNumber.length >= 10 && phoneNumber.length <= 15) {
+                    errorMsg.style.display = 'none';
+                    successMsg.style.display = 'block';
+                    launchBtn.disabled = false;
+                } else {
+                    errorMsg.style.display = 'block';
+                    successMsg.style.display = 'none';
+                    launchBtn.disabled = true;
+                }
+            });
+            
+            // Launch WhatsApp chat
+            launchBtn.addEventListener('click', function() {
+                const phoneNumber = phoneInput.value.replace(/\D/g, '');
+                if (phoneNumber.length >= 10) {
+                    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Optional: Add animation feedback
+                    this.innerHTML = '<i class="fas fa-check-circle"></i> Opening...';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fab fa-whatsapp"></i> Open in WhatsApp';
+                    }, 2000);
+                }
+            });
+            
+            // Auto-focus input on page load
+            phoneInput.focus();
+        });
+    </script>
+</body>
+</html>
